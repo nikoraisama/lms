@@ -1,0 +1,110 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: "Open Sans", sans-serif;
+}
+body {
+    height: 100vh;
+    background-color: #f7f7f7;
+    overflow-y: scroll;
+}
+body::-webkit-scrollbar {
+    display: none;
+}
+.main-content {
+    padding: 30px;
+}
+.borrow-direct-top{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+button.print {
+    margin-left: 5px;
+    width: fit-content;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    background-color: #d9534f;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+button.print:hover {
+    background-color: #b44541;
+    color: #fff;
+}
+button.print i{
+    margin-right: 5px;
+}
+h1 {
+    color: #333;
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+.borrow-container-wrapper {
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.borrow-container table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+.borrow-container th, .borrow-container td {
+    font-size: 16px;
+    padding: 50px;
+}
+.borrow-container th {
+    background-color: #ebeaea;
+    font-weight: bold;
+}
+.borrow-container tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+.borrow-container tr:nth-child(odd) {
+    background-color: #f5f1f1;
+}
+.borrow-container tr:hover {
+    background-color: #e2e2e2;
+}
+.dataTables_wrapper .dataTables_filter {
+    float: right;
+    text-align: right;
+}
+.dataTables_wrapper .dataTables_filter input {
+    width: 300px;
+    border: 1px solid #ccc;
+    padding: 5px 12px;
+    border-radius: 5px;
+    margin-left: 8px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    padding: 5px 10px;
+    margin: 5px 2px;
+    font-size: 14px;
+    color: #333;
+    text-decoration: none;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    border-color: #999;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+    color: #fff;
+    border-color: #333;
+}
+.dataTables_wrapper .dataTables_length select {
+    border: 1px solid #ccc;
+    padding: 5px;
+    border-radius: 5px;
+}
+.dataTables_filter label {
+    font-size: 14px;
+    color: #333;
+}

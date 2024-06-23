@@ -1,0 +1,179 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Open Sans", sans-serif;
+}
+body {
+    height: 100vh;
+    background-color: #f7f7f7;
+}
+.main-content {
+    padding: 30px;
+}
+.member-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.img-container img {
+    height: 150px;
+    width: 150px;
+}
+h1 {
+    color: #333;
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+h2 {
+    color: #333;
+    margin: 10px auto;
+}
+.details p {
+    font-size: 20px;
+    margin: 15px;
+    color: #555;
+}
+.logout-form{
+    margin-bottom: 15px;
+}
+.logoutBtn {
+    margin-left: 10px;
+    width: fit-content;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+.logoutBtn:hover {
+    background-color: #0056b3;
+}
+.seachbar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 50px;
+}
+input[type="text"] {
+    padding: 10px;
+    width: 500px;
+    border-radius: 17px 0 0 17px;
+    border: 1px solid #ccc;
+    transition: border-color 0.3s ease;
+}
+input[type="text"]::placeholder{
+    color: rgb(169, 169, 169);
+    font-style: italic;
+}
+input[type="text"]:focus {
+    outline-color: #007bff;
+}
+button {
+    padding: 11px 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 0 17px 17px 0; 
+    margin-left: -10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+button:hover {
+    background-color: #0056b3;
+}
+.borrow-table-wrapper {
+    border-radius: 20px;
+    padding: 30px;
+    height: auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.borrow-table table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+.borrow-table th, .borrow-table td {
+    font-size: 14px;
+    padding: 5px 10px;
+}
+.borrow-table th {
+    background-color: #ebeaea;
+    font-size: 15px;
+}
+.borrow-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+.borrow-table tr:nth-child(odd) {
+    background-color: #f5f1f1;
+}
+.borrow-table tr:hover {
+    background-color: #e2e2e2;
+}
+.borrowBtn {
+    width: 90px;
+    margin: 10px 0;
+    padding: 7px 0;
+    background-color: #28a745;
+    align-items: center;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.borrowBtn:hover {
+    background-color: #1b692d;
+}
+.error-message {
+    font-size: 15px;
+    color: #d9534f;
+    margin-top: 10px;
+}
+.success-message {
+    font-size: 15px;
+    color: #28a745;
+    margin-top: 10px;
+}
+.dataTables_wrapper .dataTables_filter {
+    float: right;
+    text-align: right;
+}
+.dataTables_wrapper .dataTables_filter input {
+    width: 300px;
+    border: 1px solid #ccc;
+    padding: 5px 12px;
+    border-radius: 5px;
+    margin-left: 8px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    padding: 5px 10px;
+    margin: 5px 2px;
+    font-size: 14px;
+    color: #333;
+    text-decoration: none;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    border-color: #999;
+}
+.dataTables_wrapper .dataTables_length select {
+    border: 1px solid #ccc;
+    padding: 5px;
+    border-radius: 5px;
+}
+.dataTables_filter label {
+    font-size: 14px;
+    color: #333;
+}
+.dataTables_length {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.dataTables_length select {
+    padding: 4px 8px;
+    border-radius: 4px;
+}

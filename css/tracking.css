@@ -1,0 +1,68 @@
+.tracking-title {
+    color: white;
+    margin-top: -5px;
+}
+.tracking-form input[type="text"] {
+    width: 610px;
+    font-size: 20px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    flex: 1;
+}
+.tracking-form input[type="text"]::placeholder{
+    color: rgb(169, 169, 169);
+    font-style: italic;
+}
+.tracking-form input[type="submit"] {
+    font-size: 20px;
+    padding: 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+}
+.tracking-form input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    font-size: 12px;
+    border-radius: 5px;
+    text-align: center;
+}
+.b-list1-container {
+    max-height: 350px;
+    overflow-y: auto;
+}
+.b-list1-container::-webkit-scrollbar {
+    display: none;
+}
+.b-list-container {
+    max-height: 370px;
+    overflow-y: auto;
+}
+.b-list-container::-webkit-scrollbar {
+    display: none;
+}
+.b-list1-container th, .b-list-container th, .b-list1-container td, .b-list-container td {
+    padding: 5px;
+    border: 1px solid #ccc;
+}
+.b-list1-container th,  .b-list-container th {
+    background-color: #ebeaea;
+    font-weight: bold;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+tr:hover {
+    background-color: #e0e0e0;
+}

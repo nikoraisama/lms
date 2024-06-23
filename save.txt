@@ -1,0 +1,523 @@
+
+//ADD ADMIN
+if (isset($_POST['addAdmin'])) {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $confirm_password = $_POST['confirm_password'];
+
+    $add_admin = mysqli_query($connect,"INSERT INTO admins (username, password) VALUES ('$username', '$password')");
+    if ($add_admin) {
+        //redirect to admin.login.php after adding the admin\
+        header("Location: admin_login.php");
+        exit();
+    } else {
+        echo "Error";
+    }
+}
+
+//ADD ADMIN
+// Define variables to store form data
+$username = $password = $confirm_password = '';
+$username_err = $password_err = $confirm_password_err = '';
+
+// Process form submission when the form is submitted
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Validate username
+    if (empty($_POST['username'])) {
+        $username_err = "Please enter a username.";
+    } else {
+        $username = $_POST['username'];
+        // Check if the username already exists
+        $query = "SELECT id FROM admins WHERE username = '$username'";
+        $result = $conn->query($query);
+        if ($result->num_rows > 0) {
+            $username_err = "Username is already taken.";
+        }
+    }
+
+    // Validate password
+    if (empty($_POST['password'])) {
+        $password_err = "Please enter a password.";
+    } elseif (strlen($_POST['password']) < 6) {
+        $password_err = "Password must have at least 6 characters.";
+    } else {
+        $password = $_POST['password'];
+    }
+
+    // Validate confirm password
+    if (empty($_POST['confirm_password'])) {
+        $confirm_password_err = "Please confirm password.";
+    } else {
+        $confirm_password = $_POST['confirm_password'];
+        if (empty($password_err) && ($password != $confirm_password)) {
+            $confirm_password_err = "Password did not match.";
+        }
+    }
+
+    // Check input errors before inserting into database
+    if (empty($username_err) && empty($password_err) && empty($confirm_password_err)) {
+        // Hash the password before storing it in the database for security
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+        // Insert the new admin user into the database
+        $query = "INSERT INTO admins (username, password) VALUES ('$username', '$hashed_password')";
+        if ($conn->query($query) === TRUE) {
+            // Redirect to admin login page after successful addition
+            header("Location: admin_login.php");
+            exit();
+        } else {
+            echo "Something went wrong. Please try again later.";
+        }
+    }
+}
+
+
+
+<div>
+    <h1>Student Login/Logout</h1>
+    <form method="POST">
+        <label for="usn">USN:</label>
+        <input type="text" id="usn" name="usn" placeholder="Enter USN" required>
+        <input type="submit" name="login" value="Login">
+        <input type="submit" name="logout" value="Logout">
+    </form>
+</div>
+<?php
+    // Initialize $_SESSION['logged_in_users'] as an array if it's not set or not an array
+    if (!isset($_SESSION['logged_in_users']) || !is_array($_SESSION['logged_in_users'])) {
+    $_SESSION['logged_in_users'] = array();
+}
+
+    include('config.php');
+    //process login and logout if the form is submitted
+    if (isset($_POST['usn'])){
+        $usn = $_POST['usn'];
+
+        //check if user is loggin in
+        if (isset($_POST['login'])){
+            $usn_login = mysqli_query($connect,"SELECT usn, name, course, year_level FROM students WHERE usn = '$usn'");
+            if ($usn_login_array = mysqli_fetch_array($usn_login)){
+                $usn = $usn_login_array['usn'];
+                $name = $usn_login_array['name'];
+                $course = $usn_login_array['course'];
+                $year_level = $usn_login_array['year_level'];
+
+                array_unshift($_SESSION['logged_in_users'], [
+                    'usn'=> $usn,
+                    'name'=> $name,
+                    'course'=> $course,
+                    'year_level'=> $year_level,
+                    'time-logged-in' => date('m/d/y | H:m:s'),
+                    'status' => 'logged_in' // Added status indicating logged in
+                ]);
+
+                 // Update the 'login_time' and 'status' columns in the database for the logged-in user
+                $loginTime = date('Y-m-d H:i:s'); // Format the login time as YYYY-MM-DD HH:MM:SS
+                $update_query = mysqli_query($connect,"UPDATE students SET login_time = ?, status = 'logged_in' WHERE usn = ?");
+                if($update_query_array = mysqli_fetch_array($update_query)){
+                session_start();
+                // store admin ID in session for future use
+                $_SESSION['usn'] = $update_query_array['usn']; 
+                exit();
+                }
+                return $name; // Return the name for displaying the success message
+            } else {
+                echo "<p>User with USN $usn not found.</p>";
+            }
+
+        } elseif (isset($_POST['logout'])){
+            $name = processLogout($connect, $usn);
+        }
+    }
+?>
+
+
+<img class="dash-img" src="images/bg2.jpg">
+
+
+
+
+
+
+<?php
+session_start(); // Initialize session
+
+// Check and initialize $_SESSION['logged_in_users']
+if (!isset($_SESSION['logged_in_users']) || !is_array($_SESSION['logged_in_users'])) {
+    $_SESSION['logged_in_users'] = [];
+}
+
+// Database connection
+include 'config.php';
+
+// Handle form submissions
+if (isset($_POST['usn'])) {
+    $usn = $_POST['usn'];
+    if (isset($_POST['login'])) {
+        processLogin($usn, $connect);
+    } elseif (isset($_POST['logout'])) {
+        processLogout($usn, $connect);
+    }
+}
+
+// Login function
+function processLogin($usn, $connect) {
+    $login_query = mysqli_query($connect, "SELECT name, course, year_level FROM students WHERE usn = '$usn'" );
+    if ($login_query && mysqli_num_rows($login_query) > 0) {
+        $row = mysqli_fetch_assoc($login_query);
+        $name = $row['name'];
+        $course = $row['course'];
+        $year_level = $row['year_level'];
+        // Add user to logged_in_users
+        array_unshift($_SESSION['logged_in_users'], compact('usn', 'name', 'course', 'year_level'));
+        // Update database with login info
+        $loginTime = date('Y-m-d H:i:s');
+        $update_login = mysqli_query($connect, "UPDATE students SET login_time = '$loginTime', status = 'logged_in' WHERE usn = '$usn'" );
+        echo "<p>Login successful! Welcome, $name ($usn).</p>";
+    } else {
+        echo "<p>User with USN $usn not found.</p>";
+    }
+}
+
+// Logout function
+function processLogout($usn, $connect) {
+    foreach ($_SESSION['logged_in_users'] as $key => $user) {
+        if ($user['usn'] === $usn) {
+            $_SESSION['logged_in_users'][$key]['status'] = 'logged_out';
+            $_SESSION['logged_in_users'][$key]['time_logged_out'] = date('m/d/y H:i:s');
+            $logoutTime = date('Y-m-d H:i:s');
+            $update_logout = mysqli_query($connect, "UPDATE students SET logout_time = '$logoutTime', status = 'logged_out' WHERE usn = '$usn'" );
+            echo "<p>Logout successful for {$user['name']} ($usn).</p>";
+            break;
+        }
+    }
+}
+
+$connect->close(); // Close database connection
+?>
+
+<h1>Student Login/Logout</h1>
+<form method="POST" action="">
+    <label for="usn">USN:</label>
+    <input type="text" id="usn" name="usn" required>
+    <input type="submit" name="login" value="Login">
+    <input type="submit" name="logout" value="Logout">
+</form>
+
+<hr>
+
+<h1>Current Date and Time <span id="current-time"></span></h1>
+
+<?php
+// Display logged-in users table
+if (!empty($_SESSION['logged_in_users'])) {
+    echo "<h2>Library Occupancy Monitoring</h2>";
+    echo "<div class='table-container'>";
+    echo "<table>";
+    echo "<tr><th>USN</th><th>Name</th><th>Course</th><th>Year Level</th><th>Logged In</th><th>Logged Out</th><th>Status</th></tr>";
+
+    foreach ($_SESSION['logged_in_users'] as $user) {
+        echo "<tr>";
+        echo "<td>{$user['usn']}</td>";
+        echo "<td>{$user['name']}</td>";
+        echo "<td>{$user['course']}</td>";
+        echo "<td>{$user['year_level']}</td>";
+        echo "<td>" . date('m/d/y H:i:s') . "</td>";
+        echo "<td>{$user['time_logged_out']}</td>";
+        echo "<td>{$user['status']}</td>";
+        echo "</tr>";
+    }
+
+    echo "</table>";
+    echo "</div>";
+}
+?>
+
+<script>
+    setInterval(() => {
+        let now = new Date();
+        let year = now.getFullYear();
+        let month = (now.getMonth() + 1).toString().padStart(2, '0');
+        let day = now.getDate().toString().padStart(2, '0');
+        let hours = now.getHours().toString().padStart(2, '0');
+        let minutes = now.getMinutes().toString().padStart(2, '0');
+        let seconds = now.getSeconds().toString().padStart(2, '0');
+        let currentDateTime = `${month}/${day}/${year} ${hours}:${minutes}:${seconds}`;
+        document.getElementById('current-time').textContent = currentDateTime;
+    }, 1000);
+</script>
+
+<style>
+    .table-container {
+        max-height: 300px;
+        overflow-y: auto;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    th, td {
+        padding: 8px;
+        text-align: left;
+        border: 1px solid #ddd;
+    }
+</style>
+
+
+function processLogin($usn, $connect) {
+    // Fetch user data from the database based on USN
+    $login_query = mysqli_query($connect, "SELECT name, course, year_level FROM members WHERE usn = '$usn'");
+    if ($login_query) {
+        if ($login_query->num_rows > 0) {
+            $row = $login_query->fetch_assoc();
+            $name = $row['name'];
+            $course = $row['course'];
+            $year_level = $row['year_level'];
+
+            // Add the logged-in user with fetched information to the beginning of the list of logged-in users
+            array_unshift($_SESSION['logged_in_users'], [
+                'usn' => $usn,
+                'name' => $name,
+                'course' => $course,
+                'year_level' => $year_level,
+                'time_logged_in' => date('m/d/y H:i:s'), // Current date and time
+                'status' => 'logged_in' // Added status indicating logged in
+            ]);
+
+            // Update the 'login_time' and 'status' columns in the database for the logged-in user
+            $login_time = date('Y-m-d H:i:s'); // Format the login time as YYYY-MM-DD HH:MM:SS
+            mysqli_query($connect, "UPDATE members SET login_time = '$login_time', status = 'logged_in' WHERE usn = '$usn'");
+
+            return $name; // Return the name for displaying the success message
+        } else {
+            echo "<p>User with USN $usn not found.</p>";
+        }
+    } else {
+        echo "Error: " . mysqli_error($connect);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Display Borrowed Books -->
+<?php
+$borrowed_query = "SELECT b.title, b.author, b.isbn, b.category, bb.borrow_date
+                   FROM books b
+                   INNER JOIN borrowed_books bb ON b.id = bb.book_id
+                   WHERE bb.member_id = '$member_id'";
+$borrowed_result = mysqli_query($connect, $borrowed_query);
+
+if ($borrowed_result && mysqli_num_rows($borrowed_result) > 0) {
+    echo "<h3>Borrowed Books</h3>";
+    echo "<table border='1'>";
+    echo "<tr><th>Title</th><th>Author</th><th>ISBN</th><th>Category</th><th>Borrow Date</th></tr>";
+    while ($borrowed_book_array = mysqli_fetch_array($borrowed_result)) {
+        echo "<tr><td>{$borrowed_book_array['title']}</td><td>{$borrowed_book_array['author']}</td><td>{$borrowed_book_array['isbn']}</td><td>{$borrowed_book_array['category']}</td><td>{$borrowed_book_array['borrow_date']}</td></tr>";
+    }
+    echo "</table>";
+}
+?>
+
+<?php
+if (isset($_POST['member_id'], $_POST['book_id'])) {
+    $member_id = $_POST['member_id'];
+    $book_id = $_POST['book_id'];
+
+    // Check if the member ID and book ID are not empty
+    if (!empty($member_id) && !empty($book_id)) {
+        // Insert into borrowed_books table
+        $borrow_query = "INSERT INTO borrowed_books (member_id, book_id, borrow_date) VALUES ('$member_id', '$book_id', NOW())";
+        $borrow_result = mysqli_query($connect, $borrow_query);
+
+        if ($borrow_result) {
+            // Redirect to a success page or show a success message
+            header("Location: borrow_transaction.php");
+            exit();
+        } else {
+            // Handle insertion failure
+            echo "Error borrowing book.";
+        }
+    } else {
+        // Handle empty member_id or book_id
+        echo "Invalid member ID or book ID.";
+    }
+} else {
+    // Handle missing data
+    echo "Missing data.";
+}
+?>s
+
+
+
+
+<?php
+include('config.php');
+include('sidebar.php');
+
+c
+
+    // Check if the member ID and book ID are not empty
+    if (!empty($book_id)) {
+        // Insert into borrowed_books table
+        $borrow_query = "INSERT INTO borrowed_books (book_id, borrow_date) VALUES ('$book_id', NOW())";
+        $borrow_result = mysqli_query($connect, $borrow_query);
+
+        if ($borrow_result) {
+            // Redirect to a success page or show a success message
+            header("Location: borrow_transaction.php");
+            exit();
+        } else {
+            // Handle insertion failure
+            echo "Error borrowing book.";
+        }
+    } else {
+        // Handle empty member_id or book_id
+        echo "Invalid member ID or book ID.";
+    }
+} else {
+    // Handle missing data
+    echo "Missing data.";
+}
+// Display the borrowed books table
+$borrowed_books_query = "SELECT * FROM borrowed_books";
+$borrowed_books_result = mysqli_query($connect, $borrowed_books_query);
+
+if ($borrowed_books_result && mysqli_num_rows($borrowed_books_result) > 0) {
+    echo "<h2>Borrowed Books</h2>";
+    echo "<table border='1'>";
+    echo "<tr><th>Book ID</th><th>Borrow Date</th></tr>";
+    while ($row = mysqli_fetch_assoc($borrowed_books_result)) {
+        echo "<tr><td>{$row['book_id']}</td><td>{$row['borrow_date']}</td></tr>";
+    }
+    echo "</table>";
+} else {
+    echo "No borrowed books found.";
+}
+?>
+
+<!--include the QRCode.js library from a CDN -->
+        <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+        <script>
+            //function to generate a QR code from the provided user input (USN)
+            function generateQRCode(usn) {
+                //check if the provided input is not empty or just whitespace
+                if (usn.trim() !== '') {
+                    //get the HTML element with the ID 'qrcode' where the QR code will be generated
+                    const qrCodeDiv = document.getElementById('qrcode');
+                    //clear any existing content inside the QR code div
+                    qrCodeDiv.innerHTML = '';
+                    //create a new QR code inside the qrCodeDiv element with specified text and dimensions
+                    new QRCode(qrCodeDiv, {
+                        text: usn,  //the text to be encoded in the QR code
+                        width: 200,
+                        height: 200
+                    });
+                    //get the HTML element with the ID 'qrcodeContainer', which likely contains the qrCodeDiv
+                    const qrCodeContainer = document.getElementById('qrcodeContainer');
+                    //make the qrCodeContainer visible by setting its display style to 'block'
+                    qrCodeContainer.style.display = 'block';
+                } else {
+                    //alert the user if the provided input is not valid (empty or just whitespace)
+                    alert('Not a valid USN.');
+                }
+            }
+        </script>
+
+
+
+//password_reste.php
+        <style>
+    * {
+    padding: 0;
+    margin: 0;
+    font-family: "Open Sans", sans-serif;
+    }
+    body {
+        background-color: #f7f7f7;
+    }
+    .container {
+        background-color: white;
+        max-width: 500px;
+        height: 500px;
+        margin: 40px auto;
+        padding: 20px;
+        border-radius: 30px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .container-title {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .container-title img {
+        width: 150px;
+        height: 150px;
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .pass-input {
+        margin: 10px auto;
+        width: 300px;
+        padding: 13px;
+        border: 1px solid #ccc;
+        border-radius: 30px;
+        text-align: center;
+        align-items: center;
+    }
+    .pass-input::placeholder {
+        color: rgb(169, 169, 169);
+        text-align: center;
+    }
+    h2 {
+        color: #333;
+        font-size: 26px;
+        letter-spacing: 1px;
+    }
+    p {
+        color: #333;
+        margin: 10px;
+    }
+    button {
+        padding: 10px 30px;
+        font-size: 14px;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        background-color: #007bff;
+        color: #fff;
+        transition: background-color 0.3s ease;
+        margin: 20px auto;
+        display: block;
+        width: fit-content;
+    }
+    button:hover {
+        background-color: #0056b3;
+    }
+    .return-home {
+        display: block;
+        text-align: center;
+        color: #333;
+        text-decoration: none;
+        font-size: 13px;
+    }
+    .return-home:hover {
+        color: #007bff;
+    }
+</style>

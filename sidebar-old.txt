@@ -1,0 +1,249 @@
+<?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+//fetch admin firstname in session
+$firstname = $_SESSION['admin_firstname'];
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="images/logo.png" type="image/icon type">
+    <title>Library Management System</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="top">
+            <div class="logo">
+                <i class='bx bxs-landmark'></i>
+                <span>ACLC Tacloban Library</span>
+            </div>
+            <i class='bx bx-menu' id="btn" ></i>
+        </div>
+        <div class="user">
+            <a href="admin_dashboard.php">
+                <img src="images/logo.png" class="user-img">
+            </a>
+            <div>
+                <p class="bold" >Welcome!</p>
+                <p class="bold2" >Admin, <?php echo "$firstname"?></p>
+            </div>
+        </div>
+        <hr class="hr-line">
+        <ul>
+            <li>
+                <a href="admin_dashboard.php">
+                    <i class="bx bxs-dashboard"></i>
+                    <span class="nav-item">Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="directory_member.php">
+                    <i class='bx bxs-user-circle'></i>
+                    <span class="nav-item">Members</span>
+                </a>
+            </li>
+            <li>
+                <a href="directory_book.php">
+                    <i class='bx bxs-book'></i>
+                    <span class="nav-item">Books</span>
+                </a>
+            </li>
+            <hr class="hr-line">
+            <li>
+                <a href="borrow.php">
+                    <i class='bx bxs-edit'></i>
+                    <span class="nav-item">Borrow</span>
+                </a>
+            </li>
+            <li>
+                <a href="borrow_list.php">
+                    <i class='bx bxs-plus-square'></i>
+                    <span class="nav-item">Borrow List</span>
+                </a>
+            </li>
+            <li>
+                <a href="return_list.php">
+                    <i class='bx bxs-minus-square'></i>
+                    <span class="nav-item">Return List</span>
+                </a>
+            </li>
+            <hr class="hr-line">
+            <li>
+                <a href="admin_settings.php">
+                    <i class='bx bxs-cog'></i>
+                    <span class="nav-item">Settings</span>
+                </a>
+            </li>
+            <li>
+                <a href="logout.php">
+                    <i class='bx bx-log-out-circle'></i>
+                    <span class="nav-item">Logout</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</body>
+<script>
+    let btn = document.querySelector('.bx-menu');
+    let sidebar = document.querySelector('.sidebar');
+
+    btn.onclick = function () {
+        sidebar.classList.toggle('active');
+    };
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+css
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Open Sans", sans-serif;
+}
+.sidebar .hr-line {
+    opacity: 0;
+}
+.sidebar.active .hr-line {
+    opacity: 0.5;
+}
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 80px;
+    background-color: #001e4e;
+    padding: 7px 13px;
+    transition: all 0.5s ease;
+}
+.sidebar.active ~ .main-content {
+    left: 250px;
+    width: calc(100% - 250px);
+}
+.sidebar.active {
+    width: 250px;
+}
+.sidebar #btn {
+    position: absolute;
+    color: white;
+    top: 10px;
+    left: 50%;
+    font-size: 25px;
+    line-height: 50px;
+    transform: translateX(-50%);
+    cursor: pointer;
+}
+.sidebar.active #btn {
+    left: 90%;
+}
+.sidebar .top .logo {
+    color: white;
+    display: flex;
+    height: 50px;
+    width: 100%;
+    align-items: center;
+    pointer-events: none;
+    opacity: 0;
+
+}
+.sidebar.active .top .logo {
+    opacity: 1;
+}
+.sidebar .top .logo span {
+    font-size: 15px;
+}
+.user-img{
+    width: 50px;
+    border-radius: 100%;
+    border: 1px solid #eee;
+}
+.top .logo i {
+    font-size: 30px;
+    margin-right: 5px;
+}
+.user {
+    display: flex;
+    align-items: center;
+    margin: 15px 0;
+}
+.user p {
+    color: white;
+    opacity: 1;
+    margin-left: 16px;
+
+}
+.bold2 {
+    font-size: 13px;
+}
+.bold {
+    font-size: 18px;
+    font-weight: 700;
+}
+.sidebar p {
+    opacity: 0;
+}
+.sidebar.active p {
+    opacity: 1;
+}
+.sidebar ul li {
+    position: relative;
+    list-style-type: none;
+    height: 50px;
+    width: 100%;
+    margin: 13px auto;
+}
+.sidebar ul li a {
+    color: white;
+    align-items: center;
+    display: flex;
+    text-decoration: none;
+    border-radius: 13px;
+}
+.sidebar ul li a:hover {
+    background-color: white;
+    color: #12171e;
+}
+.sidebar ul li a i {
+    min-width: 50px;
+    text-align: center;
+    height: 50px;
+    border-radius: 12px;
+    line-height: 50px;
+    font-size: 25px;
+}
+.sidebar .nav-item {
+    opacity: 0;
+}
+.sidebar.active .nav-item {
+    opacity: 1;
+}
+.main-content {
+    position: relative;
+    min-height: 100vh;
+    top: 0;
+    left: 80px;
+    transition: all 0.5s ease;
+    width: calc(100% - 80px);
+    padding: 16;
+}

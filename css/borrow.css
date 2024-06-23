@@ -1,0 +1,147 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Open Sans", sans-serif;
+}
+body {
+    height: 100vh;
+    background-color: #f7f7f7;
+}
+.main-content {
+    padding: 30px;
+}
+.banner {
+    height: 200px;
+    width: 500px;
+}
+.form-container {
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+h1 {
+    color: #333;
+    font-size: 30px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+label {
+    margin-bottom: 10px;
+    color: #333;
+}
+input[type="text"] {
+    letter-spacing: 2px;
+    text-align: center;
+    width: 500px;
+    border-radius: 50px;
+    border: 1px solid #ccc;
+}
+input[type="text"]:focus {
+    outline-color: #007bff;
+}
+button[type="submit"] {
+    text-align: center;
+    width: 100px;
+    border-radius: 50px;
+    border: 1px solid #ccc;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+#qrForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#qrForm input, #qrForm button {
+    margin: 10px;
+    padding: 10px;
+    font-size: 14px;
+}
+.qr-btn {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 50px;
+    cursor: pointer;
+}
+.qr-btn:hover {
+    background-color: #0056b3;
+}
+.qr-btn i {
+    margin-right: 5px;
+}
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+.modal.active {
+    display: flex;
+}
+.modal video {
+    width: 100%;
+    max-width: 600px;
+    z-index: 1400;
+}
+.scanner-area {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 250px;
+    height: 250px;
+    margin-top: -125px;
+    margin-left: -125px;
+    border: 3px solid white;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+    z-index: 1500;
+}
+.scan-buttons {
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    z-index: 1100;
+}
+.scan-buttons button {
+    background-color: #007bff;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 14px;
+}
+.scan-buttons button:hover {
+    background-color: #0056b3;
+}
+.powered-by {
+    position: absolute;
+    bottom: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 14px;
+    color: white;
+}
+.error-message {
+    font-size: 14px;
+    color: #d9534f;
+    margin-bottom: 10px;
+}

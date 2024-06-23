@@ -1,0 +1,137 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Open Sans", sans-serif;
+}
+.sidebar .hr-line {
+    opacity: 0;
+}
+.sidebar.active .hr-line {
+    opacity: 0.5;
+}
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 80px;
+    background-color: #001e4e;
+    padding: 7px 13px;
+    transition: all 0.5s ease;
+}
+.sidebar.active ~ .main-content {
+    left: 260px;
+    width: calc(100% - 260px);
+}
+.sidebar.active {
+    width: 260px;
+}
+.sidebar #btn {
+    position: absolute;
+    color: white;
+    top: 10px;
+    left: 50%;
+    font-size: 25px;
+    line-height: 50px;
+    transform: translateX(-50%);
+    cursor: pointer;
+}
+.sidebar.active #btn {
+    left: 90%;
+}
+.sidebar .top .logo {
+    color: white;
+    display: flex;
+    height: 50px;
+    width: 100%;
+    align-items: center;
+    pointer-events: none;
+    opacity: 0;
+
+}
+.sidebar.active .top .logo {
+    opacity: 1;
+}
+.sidebar .top .logo span {
+    font-size: 15px;
+}
+.sidebar-logo {
+    height: 40px;
+    width: 40px;
+    margin-right: 5px;
+}
+.admin-img{
+    width: 50px;
+    border-radius: 100%;
+    border: 2px solid #eee;
+}
+.top .logo i {
+    font-size: 30px;
+    margin-right: 5px;
+}
+.user {
+    display: flex;
+    align-items: center;
+    margin: 15px 0;
+}
+.user p {
+    color: white;
+    opacity: 1;
+    margin-left: 16px;
+
+}
+.bold2 {
+    font-size: 13px;
+}
+.bold {
+    font-size: 18px;
+    font-weight: 700;
+}
+.sidebar p {
+    opacity: 0;
+}
+.sidebar.active p {
+    opacity: 1;
+}
+.sidebar ul li {
+    position: relative;
+    list-style-type: none;
+    height: 50px;
+    width: 100%;
+    margin: 13px auto;
+}
+.sidebar ul li a {
+    color: white;
+    align-items: center;
+    display: flex;
+    text-decoration: none;
+    border-radius: 13px;
+}
+.sidebar ul li a:hover {
+    background-color: white;
+    color: #12171e;
+}
+.sidebar ul li a i {
+    min-width: 50px;
+    text-align: center;
+    height: 50px;
+    border-radius: 12px;
+    line-height: 50px;
+    font-size: 25px;
+}
+.sidebar .nav-item {
+    opacity: 0;
+}
+.sidebar.active .nav-item {
+    opacity: 1;
+}
+.main-content {
+    position: relative;
+    min-height: 100vh;
+    top: 0;
+    left: 80px;
+    transition: all 0.5s ease;
+    width: calc(100% - 80px);
+    padding: 16;
+}

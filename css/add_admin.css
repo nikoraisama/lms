@@ -1,0 +1,98 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: "Open Sans", sans-serif;
+}
+body {
+    height: 100vh;
+    background-color: #f7f7f7;
+    overflow-y: scroll;
+}
+body::-webkit-scrollbar {
+    display: none;
+}
+.main-content {
+    margin-top: 90px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+fieldset {
+    margin: 10px;
+    border: 1px solid #ccc;
+    padding: 20px 40px;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+legend {
+    color: #333;
+    font-weight: bold;
+    font-size: 30px
+}
+.addAdmin-input {
+    margin: 7px 0;
+    width: 400px;
+    padding: 13px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.addAdmin-input::placeholder {
+    color: rgb(169, 169, 169);
+}
+.form {
+    display: flex;
+    gap: 20px; /* Adjust the gap as needed */
+}
+
+.form1, .form2 {
+    flex: 1;
+}
+fieldset {
+    margin: 10px;
+    border: 1px solid #ccc;
+    padding: 20px 40px;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+button[type="submit"],
+button.cancel-button {
+    border-radius: 20px;
+    padding: 10px 20px;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+button[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+}
+button[type="submit"] i {
+    margin-right: 5px;
+}
+button.cancel-button {
+    background-color: #d9534f;
+    color: white;
+    border: none;
+}
+button.cancel-button:hover {
+    background-color: #c33d39;
+    color: white;
+    border: none;
+}
+.error-message {
+    font-size: 14px;
+    color: #d9534f;
+    margin-bottom: 10px;
+}
+.success-message {
+    font-size: 14px;
+    color: #28a745;
+    margin-bottom: 10px;
+}

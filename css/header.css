@@ -1,0 +1,23 @@
+header {
+    height: 70px;
+    background-color: #f7f7f7;
+    display: flex;
+    align-items: center;
+}
+.main-container {
+    margin-left: 110px;
+}
+.header-content {
+    display: flex;
+    align-items: center;
+}
+.header-content img {
+    height: 50px;
+    width: 50px;
+    margin-right: 10px;
+}
+.header-content p {
+    color: #333;
+    font-weight: 700;
+
+}

@@ -1,0 +1,58 @@
+.days-table table {
+    width: 500px;
+    border-collapse: collapse;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.days-table h2 {
+    font-size: 23px;
+    margin-bottom: 10px;
+}
+.days-table {
+    margin-top: 20px;
+}
+.days-table table th, .days-table table td {
+    text-align: center;
+    font-size: 16px;
+    padding: 10px;
+}
+table th {
+    background-color: #ebeaea;
+    font-weight: bold;
+    text-align: center;
+}
+.days-table input[type="number"] {
+    border: 1px solid #ccc;
+    font-size: 16px;
+    width: 150px;
+    padding: 5px 20px;
+    border-radius: 15px;
+}
+.days-table input[type="number"]:focus {
+    outline-color: #007bff;
+}
+.days-table input[type="submit"] {
+    font-size: 16px;
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 15px;
+    margin-left: -72px;
+    cursor: pointer;
+}
+.days-table input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+.error-message {
+    font-size: 15px;
+    color: #d9534f;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.success-message {
+    font-size: 15px;
+    color: #28a745;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}

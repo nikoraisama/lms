@@ -1,0 +1,47 @@
+.home {
+    font-size: 13px;
+    color: #007bff;
+    padding: 0 10px;
+    text-decoration: none;
+}
+.home:hover {
+    color: #0056b3;
+}
+.title-container {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    margin-bottom: -50px;
+}
+.title-container img {
+    margin-right: 5px;
+    height: 50px;
+    width: 50px;
+}
+.portal-title {
+    color: white;
+    font-size: 40px;
+}
+.time-container {
+    align-items: center;
+    text-align: center;
+    color: white;
+    padding: 0 10px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+.container {
+    background-color: #0000009e;
+}
+.column {
+    float: left;
+    width: 50%;
+    padding: 6px;
+    box-sizing: border-box;
+}
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}

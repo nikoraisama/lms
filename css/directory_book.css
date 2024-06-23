@@ -1,0 +1,203 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Open Sans", sans-serif;
+}
+body {
+    height: 100vh;
+    background-color: #f7f7f7;
+    overflow-y: scroll;
+}
+body::-webkit-scrollbar {
+    display: none;
+}
+.main-content {
+    padding: 30px;
+}
+.direc-b-top{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+h1 {
+    color: #333;
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+.b-directory-table-wrapper {
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.b-directory-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.b-directory-table th, .b-directory-table td {
+    font-size: 14px;
+    padding: 20px;
+    text-align: center;
+}
+.b-directory-table th:nth-child(1), .b-directory-table td:nth-child(1) {
+    width: 10%;
+}
+.b-directory-table th:nth-child(2), .b-directory-table td:nth-child(2) {
+    width: 15%; 
+}
+.b-directory-table th:nth-child(3), .b-directory-table td:nth-child(3) {
+    width: 14%;
+}
+.b-directory-table th {
+    background-color: #ebeaea;
+    font-size: 15px;
+}
+.b-directory-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+.b-directory-table tr:nth-child(odd) {
+    background-color: #f5f1f1;
+}
+.b-directory-table tr:hover {
+    background-color: #e2e2e2;
+}
+.button-book {
+    font-size: 20px;
+    width: 35px;
+    height: 35px;
+    border: 2px solid #007bff;
+    background-color: transparent;
+    color: #007bff;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.button-book:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+.button-edit {
+    font-size: 20px;
+    width: 35px;
+    height: 35px;
+    border: 2px solid #f0ad4e;
+    background-color: transparent;
+    color: #f0ad4e;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.button-edit:hover {
+    background-color: #f0ad4e;
+    color: #fff;
+}
+.button-del {
+    font-size: 20px;
+    width: 35px;
+    height: 35px;
+    border: 2px solid #d9534f;
+    background-color: transparent;
+    color: #d9534f;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.button-del:hover {
+    background-color: #d9534f;
+    color: #fff;
+}
+.top-button{
+    justify-content: flex-end;
+}
+button.add {
+    width: fit-content;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+button.add:hover {
+    background-color: #0056b3;
+    color: #fff;
+}
+button.add i{
+    margin-right: 5px;
+}
+button.print {
+    margin-left: 5px;
+    width: fit-content;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    background-color: #d9534f;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+button.print:hover {
+    background-color: #b44541;
+    color: #fff;
+}
+button.print i{
+    margin-right: 5px;
+}
+.error-message {
+    font-size: 14px;
+    color: #d9534f;
+    margin-bottom: 10px;
+}
+.success-message {
+    font-size: 14px;
+    color: #28a745;
+    margin-bottom: 10px;
+}
+.dataTables_wrapper .dataTables_filter {
+    float: right;
+    text-align: right;
+}
+
+.dataTables_wrapper .dataTables_filter input {
+    width: 300px;
+    border: 1px solid #ccc;
+    padding: 5px 12px;
+    border-radius: 5px;
+    margin-left: 8px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.dataTables_wrapper .dataTables_filter input:focus {
+    border-color: #007bff;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    padding: 5px 10px;
+    margin: 5px 2px;
+    font-size: 14px;
+    color: #333;
+    text-decoration: none;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    background-color: #007bff;
+    border-color: #999;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #333;
+}
+
+.dataTables_wrapper .dataTables_length select {
+    border: 1px solid #ccc;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.dataTables_filter label {
+    font-size: 14px;
+    color: #333;
+}

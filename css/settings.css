@@ -1,0 +1,20 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: "Open Sans", sans-serif;
+}
+body {
+    height: 100vh;
+    background-color: #f7f7f7;
+    overflow-y: scroll;
+}
+body::-webkit-scrollbar {
+    display: none;
+}
+.main-content {
+    padding: 30px;
+}
+.content-column {
+    margin: 20px;
+    width: 300px;
+}
